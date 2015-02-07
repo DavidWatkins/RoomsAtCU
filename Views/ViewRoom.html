@@ -7,45 +7,45 @@
 
   <style type="text/css">
   html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #1b1b1b;
-background-image: -moz-linear-gradient(top, #222222, #111111);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
-background-image: -webkit-linear-gradient(top, #222222, #111111);
-background-image: -o-linear-gradient(top, #222222, #111111);
-background-image: linear-gradient(to bottom, #222222, #111111);
-background-repeat: repeat-x;
-border-color: #252525;
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
-}
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #1b1b1b;
+    background-image: -moz-linear-gradient(top, #222222, #111111);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
+    background-image: -webkit-linear-gradient(top, #222222, #111111);
+    background-image: -o-linear-gradient(top, #222222, #111111);
+    background-image: linear-gradient(to bottom, #222222, #111111);
+    background-repeat: repeat-x;
+    border-color: #252525;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+  }
 
-.container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
-}
-.container .text-muted {
-  margin: 20px 0;
-}
+  .container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+  }
+  .container .text-muted {
+    margin: 20px 0;
+  }
 
-.navbar {
-  background-color: #000; /* background color will be black for all browsers */
-  background-image: none;
-  background-repeat: no-repeat;
-  filter: none;
-}
+  .navbar {
+    background-color: #000; /* background color will be black for all browsers */
+    background-image: none;
+    background-repeat: no-repeat;
+    filter: none;
+  }
   </style>
 </head>
 <body>
@@ -58,75 +58,176 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', en
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
-        </button
+          </button
 
-        <a class="navbar-brand" href="index.php">Rooms@CU</a>
+          <a class="navbar-brand" href="index.php">Rooms@CU</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar">
+            <li class="active"><a href="ViewRoom.html">View Room</a></li>
+            <li><a href="SubmitRoom.html">Submit Review</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid">
+      <!-- Select Building, Room, Floor -->
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="form-group">
+                <label for="Building">Building</label>
+                <select class="form-control" id="Building">
+                  <option></option>
+                  <option>Wien</option>
+                  <option>Wallach</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Floor">Floor</label>
+                <select class="form-control" id="Floor">
+                  <option></option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="Room-Number">Room Number</label>
+                <input type="input" class="form-control" id="Room-Number" placeholder="#">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar">
-          <li class="active"><a href="ViewRoom.html">View Room</a></li>
-          <li><a href="SubmitRoom.html">Submit Review</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+      <!-- Select View rooms as tiled panes -->
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10" id="data-viewer">
 
-  <div class="container-fluid">
-    <!-- Select Building, Room, Floor -->
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10">
-        <p>Building</p>
-        <select>
-          <option></option>
-          <option>Wien</option>
-          <option>Wallach</option>
-        </select>
-        <p>Floor</p>
-        <select>
-          <option></option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-        </select>
-
+        </div>
       </div>
     </div>
 
-    <!-- Select View rooms as tiled panes -->
-    <div class="row">
-      <div class="col-md-offset-1 col-md-10" id="data-viewer">
-
+    <footer class="footer footer-inverse">
+      <div class="container">
+        <p class="text-muted">Made by Amar Dhingra &amp; David Watkins &copy; 2015</p>
       </div>
-    </div>
-  </div>
+    </footer>
 
-  <footer class="footer footer-inverse">
-    <div class="container">
-      <p class="text-muted">Made by Amar Dhingra &amp; David Watkins &copy; 2015</p>
-    </div>
-  </footer>
+    <!-- JQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Boostrap -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-  <!-- JQuery -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <!-- Boostrap -->
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
 
-  <script type="text/javascript">
-  $.ajax({
-    type: 'POST',
-    url: '/ajax/table',
-    dataType: 'json',
-    data: postData,
-    success: function(data) {
-      console.log(data.length);
-      recordData(data);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      alert(errorThrown);
+    function displayError(message) {
+      $('#Data-Viewer').html(
+        '<div class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>'+
+          message
+        +'</div>');
     }
-  });
-  </script>
-</body>
-</html>
+
+    //Load all the buildings into the first drop down
+    function loadBuildings() {
+      $.ajax({
+        type: 'POST',
+        url: '/getBuildings',
+        dataType: 'json',
+        success: function(data) {
+          $('#Building').html("<option></option>");
+          for(var building : data) {
+            $('#Building').append("<option>" + building + "</option>");
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert(errorThrown);
+        }
+      });
+    }
+    loadBuildings();
+
+    //When a building is chosen reload floor list
+    $("#Building").change(function() {
+      var building = $('#Building').text();
+
+      if(building != null && floor != null) {
+        $.ajax({
+          type: 'POST',
+          url: '/' + building,
+          dataType: 'json',
+          success: function(data) {
+            $('#Floor').html("<option></option>");
+            for(var floor : data) {
+              $('#Floor').append("<option>" + floor + "</option>");
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            displayError(errorThrown);
+          }
+        });
+      }
+    });
+
+    $("#Floor").change(function() {
+      var building = $('#Building').text(),
+      floor = $('#Floor').text();
+
+      if(building != null && floor != null) {
+        $('#Data-Viewer').html('<p>hi</p><img src="/' + building + '/gfp/' + floor + '">');
+      }
+    });
+
+    $("#Room-Number").change(function() {
+      var building = $('#Building').text(),
+      floor = $('#Floor').text(),
+      room = $('#Room-Number').text();
+      if(building != null && floor != null && room != null) {
+        $.ajax({
+          type: 'POST',
+          url: '/' + building + '/' + floor + '/' + room,
+          dataType: 'json',
+          success: function(data) {
+            if(data.length == 0) {
+              displayError("Not a valid room number");
+            }
+            else {
+              $('#Data-Viewer').html('');
+              for(var review : data) {
+                $('Data-Viewer').append('
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <p>Lottery # - ' + review['lottery-number'] + '</p>
+                    <p>Point Value - ' + review['point-value'] + '</p>
+                    <p>View Rating - ' + review['view-rating'] + '/5</p>
+                    <p>Heating - ' + review['heating'] + '</p>
+                    <p>Radiator - ' + review['radiator'] + '</p>
+                    <p>AC - ' + review['AC'] + '</p>
+                    <p>Closet - ' + review['closet'] + '</p>
+                    <p>Drawers - ' + review['drawers'] + '</p>
+                    <p># of Windows - ' + review['num-windows'] + '</p>
+                    <p>Flooring type - ' + review['flooring'] + '</p>
+                    <p>' + review['room-type'] + '</p>
+                  </div>
+                </div>
+                ');
+              }
+            }
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            displayError("Server error");
+          }
+        }
+      });
+    });
+
+    </script>
+  </body>
+  </html>
