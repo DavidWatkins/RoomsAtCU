@@ -153,12 +153,12 @@
 
       //When a building is chosen reload floor list
       $("#Building").change(function() {
-        var building = $('#Building').text();
+        var building = $('#Building option:selected').text().trim();
 
-        if(building != null && floor != null) {
+        if(building != null) {
           $.ajax({
             type: 'POST',
-            url: '/' + building,
+            url: '/getFloors/' + building,
             dataType: 'text',
             success: function(data) {
               $('#Floor').html("<option></option>");
@@ -175,22 +175,22 @@
       });
 
       $("#Floor").change(function() {
-        var building = $('#Building').text(),
-        floor = $('#Floor').text();
+        var building = $('#Building option:selected').text().trim(),
+        floor = $('#Floor option:selected').text().trim();
 
         if(building != null && floor != null) {
-          $('#Data-Viewer').html('<p>hi</p><img src="/' + building + '/gfp/' + floor + '">');
+          $('#Data-Viewer').html('<p>hi</p><img src="/getImage/' + building + '/' + floor + '">');
         }
       });
 
       $("#Room-Number").change(function() {
-        var building = $('#Building').text(),
-        floor = $('#Floor').text(),
-        room = $('#Room-Number').text();
+        var building = $('#Building option:selected').text().trim(),
+        floor = $('#Floor option:selected').text().trim(),
+        room = $('#Room-Number').text().trim();
         if(building != null && floor != null && room != null) {
           $.ajax({
             type: 'POST',
-            url: '/' + building + '/' + floor + '/' + room,
+            url: '/getRoom/' + building + '/' + floor + '/' + room,
             dataType: 'text',
             success: function(data) {
               if(data.length == 0) {
