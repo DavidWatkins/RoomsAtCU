@@ -83,17 +83,12 @@
               <label for="Building">Building</label>
               <select class="form-control" id="Building">
                 <option></option>
-                <option>Wien</option>
-                <option>Wallach</option>
               </select>
             </div>
             <div class="form-group">
               <label for="Floor">Floor</label>
               <select class="form-control" id="Floor">
                 <option></option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
               </select>
             </div>
             <div class="form-group">
@@ -144,9 +139,10 @@
           dataType: 'json',
           success: function(data) {
             $('#Building').html("<option></option>");
-            for(var building in data) {
+            data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
+            data.forEach(function(building) {
               $('#Building').append("<option>" + building + "</option>");
-            }
+            });
           },
           error: function(jqXHR, textStatus, errorThrown) {
             displayError(errorThrown);
@@ -166,9 +162,10 @@
             dataType: 'json',
             success: function(data) {
               $('#Floor').html("<option></option>");
-              for(var floor in data) {
+              data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
+              data.forEach(function(floor) {
                 $('#Floor').append("<option>" + floor + "</option>");
-              }
+              });
             },
             error: function(jqXHR, textStatus, errorThrown) {
               displayError(errorThrown);
@@ -201,7 +198,8 @@
               }
               else {
                 $('#Data-Viewer').html('');
-                for(var review in data) {
+                data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
+                data.forEach(function(review) {
 
                   var getRoR = function(title, index) {
                     return '<p>' + title + ' - ' + review[index] + '</p>';
@@ -223,11 +221,11 @@
                     '</div>' +
                     '</div>'
                   );
-                }
+                });
               }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-              displayError("Server error");
+              displayError(errorThrown);
             }
           });
         }
