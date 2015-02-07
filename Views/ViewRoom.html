@@ -162,7 +162,11 @@
             dataType: 'text',
             success: function(data) {
               $('#Floor').html("<option></option>");
-              data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
+              data = data.replace(/\'/g, '').replace(/u/g, '').replace('[', '').replace(']', '').replace.split(',');
+              for(var i = 0; i < data.length; i++) {
+                data[i] = Number(data[i]);
+              }
+              data.sort(function(a, b) {return a-b;});
               data.forEach(function(floor) {
                 $('#Floor').append("<option>" + floor + "</option>");
               });
@@ -183,7 +187,7 @@
         }
       });
 
-      $("#Room-Number").change(function() {
+      $("#Room-Number").bind("change keyup", function() {
         var building = $('#Building option:selected').text().trim(),
         floor = $('#Floor option:selected').text().trim(),
         room = $('#Room-Number').text().trim();
