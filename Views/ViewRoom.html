@@ -136,7 +136,7 @@
         $.ajax({
           type: 'POST',
           url: '/getBuildings',
-          dataType: 'json',
+          dataType: 'text',
           success: function(data) {
             $('#Building').html("<option></option>");
             data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
@@ -159,7 +159,7 @@
           $.ajax({
             type: 'POST',
             url: '/' + building,
-            dataType: 'json',
+            dataType: 'text',
             success: function(data) {
               $('#Floor').html("<option></option>");
               data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
@@ -191,7 +191,7 @@
           $.ajax({
             type: 'POST',
             url: '/' + building + '/' + floor + '/' + room,
-            dataType: 'json',
+            dataType: 'text',
             success: function(data) {
               if(data.length == 0) {
                 displayError("Not a valid room number");
