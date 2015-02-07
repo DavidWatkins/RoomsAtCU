@@ -155,20 +155,21 @@
       $("#Building").change(function() {
         var building = $('#Building option:selected').text().trim();
 
-        if(building != null) {
+        if(building != "") {
           $.ajax({
             type: 'POST',
             url: '/getFloors/' + building,
             dataType: 'text',
             success: function(data) {
               $('#Floor').html("<option></option>");
-              data = data.replace(/\'/g, '').replace(/u/g, '').replace('[', '').replace(']', '').replace.split(',');
+              data = data.replace(/\'/g, '').replace(/u/g, '').replace('[', '').replace(']', '').split(',');
               for(var i = 0; i < data.length; i++) {
                 data[i] = Number(data[i]);
               }
               data.sort(function(a, b) {return a-b;});
               data.forEach(function(floor) {
-                $('#Floor').append("<option>" + floor + "</option>");
+                if(!isNaN(floor))
+                  $('#Floor').append("<option>" + floor + "</option>");
               });
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -178,20 +179,22 @@
         }
       });
 
-      $("#Floor").change(function() {
+      var getFloorPlan = function() {
         var building = $('#Building option:selected').text().trim(),
         floor = $('#Floor option:selected').text().trim();
 
-        if(building != null && floor != null) {
-          $('#Data-Viewer').html('<p>hi</p><img src="/getImage/' + building + '/' + floor + '">');
+        if(building != "" && floor != "") {
+          $('#Data-Viewer').html('<img src="/getImage/' + building + '/' + floor + '">');
         }
-      });
+      };
+      $("#Floor").change(getFloorPlan);
 
       $("#Room-Number").bind("change keyup", function() {
         var building = $('#Building option:selected').text().trim(),
         floor = $('#Floor option:selected').text().trim(),
-        room = $('#Room-Number').text().trim();
-        if(building != null && floor != null && room != null) {
+        room = $('#Room-Number').val().trim();
+        getFloorPlan();
+        if(building != "" && floor != "" && room != "") {
           $.ajax({
             type: 'POST',
             url: '/getRoom/' + building + '/' + floor + '/' + room,
@@ -201,7 +204,6 @@
                 displayError("Not a valid room number");
               }
               else {
-                $('#Data-Viewer').html('');
                 data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
                 data.forEach(function(review) {
 
@@ -209,7 +211,7 @@
                     return '<p>' + title + ' - ' + review[index] + '</p>';
                   }
 
-                  $('Data-Viewer').append(
+                  $('Data-Viewer').prepend(
                     '<div class="panel panel-default">' +
                     '<div class="panel-body">' +
                     getRoR('Lottery #', 'lottery-number') +
