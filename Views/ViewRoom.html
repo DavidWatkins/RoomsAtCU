@@ -174,21 +174,12 @@
         }
       });
 
-      function UrlExists(url) {
-       var img = new Image();
-       img.src = url;
-       return img.height != 0;
-      }
-
       var getFloorPlan = function() {
         var building = $('#Building option:selected').text().trim(),
         floor = $('#Floor option:selected').text().trim();
 
         if(building != "" && floor != "") {
-          if(UrlExists("/getImage/" + building + '/' + floor))
             $('#Data-Viewer').html('<img src="/getImage/' + building + '/' + floor + '">');
-          else
-          $('#Data-Viewer').html('');
         }
       };
       $("#Floor").change(getFloorPlan);
