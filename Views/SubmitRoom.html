@@ -281,16 +281,6 @@
             });
           }
         });
-
-        var getFloorPlan = function() {
-          var building = $('#Building option:selected').text().trim(),
-          floor = $('#Floor option:selected').text().trim();
-
-          if(building != "" && floor != "") {
-            $('#Data-Viewer').html('<img src="/getImage/' + building + '/' + floor + '">');
-          }
-        };
-        $("#Floor").change(getFloorPlan);
       };
 
     </script>
