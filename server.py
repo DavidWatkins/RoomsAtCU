@@ -16,15 +16,20 @@ def read_file(filepath):
 	infile = open(filepath, 'rU')
 	return ''.join(infile.readlines())
 
+def clean_list(list):
+	if '.DS_Store' in list:
+		list.remove('.DS_Store')
+	return list
+
 @app.route('/getBuildings', methods = ['POST'])
 def get_buildings():
-	return str(os.listdir('./buildings'))
+	return str(clean_list(os.listdir('./buildings')))
 
 
 @app.route('/getFloors/<building_name>', methods = ['POST'])
 def get_floors(building_name):
 	building_name = building_name.replace('%20', ' ')
-	return str(os.listdir('./buildings/' + building_name))
+	return str(clean_list(os.listdir('./buildings/' + building_name)))
 
 @app.route('/getImage/<building_name>/<floor_number>', methods = ['GET'])
 def get_image(building_name, floor_number):
@@ -39,9 +44,9 @@ def get_room_reviews(building_name, floor_number, room_number):
 	floor_number = floor_number.replace('%20', ' ')
 	room_number = room_number.replace('%20', ' ')
 	try:
-		review_list = os.listdir('./buildings/' + building_name \
+		review_list = clean_list(os.listdir('./buildings/' + building_name \
 							+ '/' + floor_number + '/' + \
-							room_number)
+							room_number))
 		reviews = []
 		for review in review_list:
 			reviews.append(ast.literal_eval(read_file_no_sp('./buildings/' \
@@ -93,6 +98,10 @@ def view_room():
 @app.route('/')
 def index():
     return read_file('Views/ViewRoom.html')
+
+@app.errorhandler(404)
+def page_not_found(error):
+	return "404!\nThis is not the page you're looking for"
 
 if __name__ == '__main__':
     app.run(debug = True)
