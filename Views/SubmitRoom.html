@@ -72,43 +72,228 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+  <!--
+  room-num
+  building-name
+  floor-num
+  room-type
 
-  <div class="container-fluid">
-    <div class="row">
-      <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+  lottery-num
+  current-year
+
+  view-rating
+  heating-rating
+  radiator
+  closet
+  drawers
+  num-windows
+  flooring-type
+-->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="Building">Building</label>
+              <select class="form-control" id="Building" name="Building">
+                <option></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="Floor">Floor</label>
+              <select class="form-control" id="Floor" name="Floor">
+                <option></option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="room-num">Room Number</label>
+              <input type="text" class="form-control" id="room-num" name="room-num" placeholder="Enter Room Number">
+            </div>
+            <div class="form-group">
+              <label for="room-num">Room Type</label>
+              <select class="form-control">
+                <option>single</option>
+                <option>double</option>
+              </select>
+            </div>
+            <hr>
+            <div class="form-group">
+              <label for="room-num">Lottery Number</label>
+              <input type="text" class="form-control" id="lottery-num" name="lottery-num" placeholder="Lottery Number">
+            </div>
+            <div class="form-group">
+              <label for="room-num">Current Year</label>
+              <select class="form-control" name="current-year">
+                <option>Freshman</option>
+                <option>Sophomore</option>
+                <option>Junior</option>
+                <option>Senior</option>
+              </select>
+            </div>
+            <hr>
+            <div class="form-group">
+              <label for="radio">How many windows does your room have?</label>
+              <select class="form-control" name="dresser">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="radio">How would you rate the view on your room?</label>
+              <label class="radio-inline">
+                <input type="radio" name="view-rating" id="view-rating" value="1"> 1
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="view-rating" id="view-rating" value="2"> 2
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="view-rating" id="view-rating" value="3"> 3
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="view-rating" id="view-rating" value="4"> 4
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="view-rating" id="view-rating" value="5"> 5
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="radio">Is there a standing radiator?</label>
+              <select class="form-control" name="radiator">
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="radio">How would you rate the heating in your room?</label>
+              <label class="radio-inline">
+                <input type="radio" name="heater-rating" id="heater-rating" value="1"> 1
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="heater-rating" id="heater-rating" value="2"> 2
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="heater-rating" id="heater-rating" value="3"> 3
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="heater-rating" id="heater-rating" value="4"> 4
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="heater-rating" id="heater-rating" value="5"> 5
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="radio">Is there a closet?</label>
+              <select class="form-control" name="closet">
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="radio">How many drawers in your dresser?</label>
+              <select class="form-control" name="dresser">
+                <option>3</option>
+                <option>5</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="radio">What type of flooring do you have?</label>
+              <select class="form-control" name="flooring-type">
+                <option>Wood</option>
+                <option>Tile</option>
+                <option>Carpet</option>
+              </select>
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputFile">File input</label>
-          <input type="file" id="exampleInputFile">
-          <p class="help-block">Example block-level help text here.</p>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox"> Check me out
-          </label>
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
+        </div
+      </div>
     </div>
-  </div>
 
-  <footer class="footer footer-inverse">
-    <div class="container">
-      <p class="text-muted">Made by Amar Dhingra &amp; David Watkins &copy; 2015</p>
-    </div>
-  </footer>
+    <footer class="footer footer-inverse">
+      <div class="container">
+        <p class="text-muted">Made by Amar Dhingra &amp; David Watkins &copy; 2015</p>
+      </div>
+    </footer>
 
-  <!-- JQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <!-- Boostrap -->
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Boostrap -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
-</body>
-</html>
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+      function displayError(message) {
+        $('#Data-Viewer').html(
+          '<div class="alert alert-danger" role="alert">' +
+          '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>' +
+          '<span class="sr-only">Error:</span>'+
+          message
+          +'</div>');
+        }
+
+        //Load all the buildings into the first drop down
+        function loadBuildings() {
+          $.ajax({
+            type: 'POST',
+            url: '/getBuildings',
+            dataType: 'text',
+            success: function(data) {
+              $('#Building').html("<option></option>");
+              data = data.replace(/\'/g, '').replace('[', '').replace(']', '').split(',');
+              data.forEach(function(building) {
+                $('#Building').append("<option>" + building + "</option>");
+              });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              displayError(errorThrown);
+            }
+          });
+        }
+        loadBuildings();
+
+        //When a building is chosen reload floor list
+        $("#Building").change(function() {
+          var building = $('#Building option:selected').text().trim();
+
+          if(building != "") {
+            $.ajax({
+              type: 'POST',
+              url: '/getFloors/' + building,
+              dataType: 'text',
+              success: function(data) {
+                $('#Floor').html("<option></option>");
+                data = data.replace(/\'/g, '').replace(/u/g, '').replace('[', '').replace(']', '').split(',');
+                data.forEach(function(floor) {
+                    $('#Floor').append("<option>" + floor + "</option>");
+                });
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                displayError(errorThrown);
+              }
+            });
+          }
+        });
+
+        var getFloorPlan = function() {
+          var building = $('#Building option:selected').text().trim(),
+          floor = $('#Floor option:selected').text().trim();
+
+          if(building != "" && floor != "") {
+            $('#Data-Viewer').html('<img src="/getImage/' + building + '/' + floor + '">');
+          }
+        };
+        $("#Floor").change(getFloorPlan);
+      };
+
+    </script>
+
+  </body>
+  </html>

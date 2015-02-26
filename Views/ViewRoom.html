@@ -163,12 +163,7 @@
             success: function(data) {
               $('#Floor').html("<option></option>");
               data = data.replace(/\'/g, '').replace(/u/g, '').replace('[', '').replace(']', '').split(',');
-              for(var i = 0; i < data.length; i++) {
-                data[i] = Number(data[i]);
-              }
-              data.sort(function(a, b) {return a-b;});
               data.forEach(function(floor) {
-                if(!isNaN(floor))
                   $('#Floor').append("<option>" + floor + "</option>");
               });
             },
@@ -198,7 +193,7 @@
           $.ajax({
             type: 'POST',
             url: '/getRoom/' + building + '/' + floor + '/' + room,
-            dataType: 'text',
+            dataType: 'json',
             success: function(data) {
               if(data.length == 0) {
                 displayError("Not a valid room number");
@@ -211,7 +206,7 @@
                     return '<p>' + title + ' - ' + review[index] + '</p>';
                   }
 
-                  $('Data-Viewer').prepend(
+                  $('#Data-Viewer').prepend(
                     '<div class="panel panel-default">' +
                     '<div class="panel-body">' +
                     getRoR('Lottery #', 'lottery-number') +
@@ -224,6 +219,7 @@
                     getRoR('Number of Windows', 'num-windows') +
                     getRoR('Flooring Type', 'flooring') +
                     getRoR('Room Type', 'room-type') +
+                    getRoR('Date', 'date');
                     '</div>' +
                     '</div>'
                   );
