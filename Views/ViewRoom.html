@@ -185,7 +185,7 @@
         floor = $('#Floor option:selected').text().trim();
 
         if(building != "" && floor != "") {
-          if(UrlExists("/getImage/' + building + '/' + floor + "))
+          if(UrlExists("/getImage/" + building + '/' + floor))
             $('#Data-Viewer').html('<img src="/getImage/' + building + '/' + floor + '">');
           else
           $('#Data-Viewer').html('');
