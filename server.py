@@ -84,15 +84,15 @@ def add_review():
 
 @app.route('/SubmitRoom.html')
 def submit_room():
-	return read_file('RoomsAtCU/Views/SubmitRoom.html')
+	return read_file('Views/SubmitRoom.html')
 
 @app.route('/ViewRoom.html')
 def view_room():
-    return read_file('RoomsAtCU/Views/ViewRoom.html')
+    return read_file('Views/ViewRoom.html')
 
 @app.route('/')
 def index():
-    return read_file('RoomsAtCU/Views/ViewRoom.html')
+    return read_file('Views/ViewRoom.html')
 
 if __name__ == '__main__':
     app.run(debug = True)
