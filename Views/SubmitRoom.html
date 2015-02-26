@@ -74,8 +74,8 @@
   </nav>
   <!--
   room-num
-  building-name
-  floor-num
+  building
+  floor
   room-type
 
   lottery-num
@@ -98,13 +98,13 @@
           <form action="/submit" method="POST">
             <div class="form-group">
               <label for="Building">Building</label>
-              <select class="form-control" id="Building" name="Building">
+              <select class="form-control" id="Building" name="building">
                 <option></option>
               </select>
             </div>
             <div class="form-group">
               <label for="Floor">Floor</label>
-              <select class="form-control" id="Floor" name="Floor">
+              <select class="form-control" id="Floor" name="floor">
                 <option></option>
               </select>
             </div>
@@ -114,7 +114,7 @@
             </div>
             <div class="form-group">
               <label for="room-num">Room Type</label>
-              <select class="form-control">
+              <select class="form-control" name="room-type">
                 <option>single</option>
                 <option>double</option>
               </select>
@@ -136,7 +136,7 @@
             <hr>
             <div class="form-group">
               <label for="radio">How many windows does your room have?</label>
-              <select class="form-control" name="dresser">
+              <select class="form-control" name="num-windows">
                 <option>0</option>
                 <option>1</option>
                 <option>2</option>
