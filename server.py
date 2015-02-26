@@ -21,6 +21,11 @@ def clean_list(list):
 		list.remove('.DS_Store')
 	return list
 
+def log(string):
+	logfile = open("log.txt", 'a')
+	logfile.write(string)
+	logfile.close()
+
 @app.route('/getBuildings', methods = ['POST'])
 def get_buildings():
 	return str(clean_list(os.listdir('./buildings')))
@@ -35,8 +40,13 @@ def get_floors(building_name):
 def get_image(building_name, floor_number):
 	building_name = building_name.replace('%20', ' ')
 	floor_number = floor_number.replace('%20', ' ')
-	image_name = './buildings/'+building_name+'/'+floor_number+'/floor_plan.jpg'
-	return send_file(image_name)
+	try:
+		image_name = '/'.join(['buildings', building_name, floor_number, 'floor_plan.jpg'])
+		return send_file(image_name)
+	except:
+		image_name = '/'.join(['buildings', 'floor_plan.jpg'])
+		return send_file(image_name)
+
 
 @app.route('/getRoom/<building_name>/<floor_number>/<room_number>', methods = ['POST'])
 def get_room_reviews(building_name, floor_number, room_number):
@@ -81,6 +91,8 @@ def add_review():
 					'number_of_windows':number_of_windows,
 					'flooring_type':flooring_type,
 					'single_or_double':single_or_double}
+
+	log(new_response)
 
 	outfile = open(str(datetime.datetime.now()), 'w')
 	outfile.write(str(new_response))
