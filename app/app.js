@@ -5,38 +5,26 @@ angular.module('myApp', ['ngMaterial'])
 
     .service('restService', ['$http', function($http){
 
-        var registry = {
-            'Wien Hall': {
-                '2': ['201', '202'],
-                '3': ['301', '302']
-            }
-        };
-
-        var roomInfo = {
-            building: 'Wien Hall',
-            floor: '3',
-            room: '301'
-        };
-
-        this.makeGETRequest = function(URL, succcessFunction, failureFunction){
+        this.makeGETRequest = function(URL, successFunction, failureFunction){
 
             $http.get(URL)
                 .success(function(data, status, headers, config) {
+                    console.log(data);
                     successFunction(data, status, headers, config);
                 }).
                 error(function(data, status, headers, config) {
-                    succcessFunction(registry, status, headers, config);
+                    failureFunction(data, status, headers, config);
                 });
         };
 
         this.makePOSTRequest = function(URL, data, successFunction, failureFunction){
 
-            $http.get(URL, data)
+            $http.post(URL, data)
                 .success(function(data, status, headers, config) {
                     successFunction(data, status, headers, config);
                 }).
                 error(function(data, status, headers, config) {
-                    successFunction(roomInfo, status, headers, config);
+                    failureFunction(data, status, headers, config);
                 });
         };
 
@@ -107,6 +95,7 @@ angular.module('myApp', ['ngMaterial'])
         var init = function(){
             restService.makeGETRequest('/getRoomRegistry',
                 function(data) {
+                    console.log(data);
                     $scope.roomRegistry = data;
                 },
                 function(data, status){
