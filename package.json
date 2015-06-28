@@ -5,7 +5,7 @@
   "author": "Amar Dhingra and David Watkins",
   "scripts": {
     "test": "",
-    "start": "node app.js",
+    "start": "node roomServer.js",
     "predeploy": "echo im about to deploy",
     "postdeploy": "echo ive deployed",
     "prepublish": ""
@@ -18,7 +18,8 @@
     "body-parser": "*",
     "method-override": "*",
     "python-shell": "*",
-    "errorHandler": "*"
+    "errorHandler": "*",
+    "mongodb":"*"
   },
   "preferGlobal": true,
   "private": true,
