@@ -19,7 +19,8 @@
     "method-override": "*",
     "python-shell": "*",
     "errorhandler": "*",
-    "mongodb":"*"
+    "mongodb":"*",
+    "serve-favicon": "*"
   },
   "preferGlobal": true,
   "private": true,
