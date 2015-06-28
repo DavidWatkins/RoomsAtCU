@@ -152,7 +152,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
                 return '';
             }
 
-            return 'buildings/' + $scope.roomInformation.building + '/' + $scope.roomInformation.floor + '/floor_plan.jpg';
+            return 'floor_plans/' + $scope.roomInformation.building + '_' + $scope.roomInformation.floor + '.jpg';
         };
 
         var init = function(){
