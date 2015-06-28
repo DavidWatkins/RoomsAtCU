@@ -5,8 +5,7 @@ var application_root = __dirname,
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     errorHandler = require('errorhandler'),
-    py = require('python-shell'),
-    mongoHandler = require('./mongo-handler');
+    py = require('python-shell');
 
 var app = express();
 
