@@ -9,43 +9,69 @@
         <md-content layout-padding>
             <form name="userForm">
                 <h1>Enter Room {{RoomNumber}} Information</h1>
-                <md-select placeholder="Select Building" ng-model="user.building">
+
+                Building:
+                <md-select placeholder="Select Building" ng-model="user.building" required>
                     <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
                 </md-select>
-                <md-select placeholder="Select Floor" ng-model="user.floor">
+                <br>
+                Floor:
+                <md-select placeholder="Select Floor" ng-model="user.floor" required>
                     <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
                 </md-select>
-                <md-select placeholder="Select Room" ng-model="user.room">
+                <br>
+                Room:
+                <md-select placeholder="Select Room" ng-model="user.room" required>
                     <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
                 </md-select>
-                <p>Rate your room's heating:</p>
-                <md-radio-group ng-model="user.heaterRating" layout="row">
-                    <md-radio-button value="1">1</md-radio-button>
-                    <md-radio-button value="2">2</md-radio-button>
-                    <md-radio-button value="3">3</md-radio-button>
-                    <md-radio-button value="4">4</md-radio-button>
-                    <md-radio-button value="5">5</md-radio-button>
-                </md-radio-group>
-                <p>Rate your room's view:</p>
-                <md-radio-group ng-model="user.viewRating" layout="row">
-                    <md-radio-button value="1">1</md-radio-button>
-                    <md-radio-button value="2">2</md-radio-button>
-                    <md-radio-button value="3">3</md-radio-button>
-                    <md-radio-button value="4">4</md-radio-button>
-                    <md-radio-button value="5">5</md-radio-button>
-                </md-radio-group>
-                <p>What type of flooring do you have?:</p>
-                <md-radio-group ng-model="user.flooringType"  layout="row">
-                    <md-radio-button value="Wood">Wood</md-radio-button>
-                    <md-radio-button value="Carpet">Carpet</md-radio-button>
-                    <md-radio-button value="Tile">Tile</md-radio-button>
-                </md-radio-group>
+                <br>
+                Year:
+                <md-select placeholder="Year" ng-model="user.year" required>
+                    <md-option ng-repeat="year in getYears()" value="{{year.text}}">{{year.text + ' (' + year.pointValue + ')'}}</md-option>
+                </md-select>
+                <div layout="row">
+                    <span class="input-container-align" style="">Lottery Number:</span>
+                    <md-input-container md-no-float required>
+                        <input ng-model="user.lottery" name="lottery" type="number" min="1" max="3000">
+                    </md-input-container>
+                </div>
+                <div layout="row">
+                    <span class="radio-group-align">Rate your room's heating:</span>
+                    <md-radio-group ng-model="user.heaterRating" layout="row">
+                        <md-radio-button value="1">1</md-radio-button>
+                        <md-radio-button value="2">2</md-radio-button>
+                        <md-radio-button value="3">3</md-radio-button>
+                        <md-radio-button value="4">4</md-radio-button>
+                        <md-radio-button value="5">5</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div layout="row">
+                    <span class="radio-group-align">Rate your room's view:</span>
+                    <md-radio-group ng-model="user.viewRating" layout="row">
+                        <md-radio-button value="1">1</md-radio-button>
+                        <md-radio-button value="2">2</md-radio-button>
+                        <md-radio-button value="3">3</md-radio-button>
+                        <md-radio-button value="4">4</md-radio-button>
+                        <md-radio-button value="5">5</md-radio-button>
+                    </md-radio-group>
+                </div>
+                <div layout="row">
+                    <span class="radio-group-align">What type of flooring do you have?</span>
+                    <md-radio-group ng-model="user.heaterRating" layout="row">
+                        <md-radio-button value="Wood">Wood</md-radio-button>
+                        <md-radio-button value="Carpet">Carpet</md-radio-button>
+                        <md-radio-button value="Tile">Tile</md-radio-button>
+                    </md-radio-group>
+                </div>
                 <md-input-container flex>
                     <label>Review</label>
                     <textarea ng-model="user.review"></textarea>
                 </md-input-container>
 
-                <md-button class="md-primary md-raised" ng-click="submitForm()">submit</md-button>
+                <div align="right">
+                    <md-button class="md-primary md-raised" ng-click="cancel()">cancel</md-button>
+                    <md-button class="md-primary md-raised" ng-click="submitForm()">submit</md-button>
+                </div>
             </form>
         </md-content>
     </div>

@@ -25,9 +25,7 @@ app.get('/getRoomRegistry', function(req, res) {
 });
 
 app.post('/getRoomInformation', function(req, res) {
-
-	console.log(req.body);
-	res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
+    res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
 
 });
 

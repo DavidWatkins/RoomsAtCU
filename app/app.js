@@ -148,7 +148,11 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         };
 
         $scope.getImgSrc = function(){
-            return '';
+            if($scope.roomInformation === undefined){
+                return '';
+            }
+
+            return 'buildings/' + $scope.roomInformation.building + '/' + $scope.roomInformation.floor + '/floor_plan.jpg';
         };
 
         var init = function(){
@@ -167,7 +171,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
 
     }])
 
-    .controller('formCtrl', ['$scope', 'restService', function($scope, restService){
+    .controller('formCtrl', ['$scope', '$location', 'restService', function($scope, $location, restService){
 
         $scope.getBuildings = function() {
             if($scope.roomRegistry === null || $scope.roomRegistry === undefined){
@@ -194,7 +198,34 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             return ($scope.roomRegistry[$scope.user.building])[$scope.user.floor];
         };
 
+        var years = [
+            {
+                text: 'Freshman',
+                pointValue: 'N/A'
+            },
+            {
+                text: 'Sophomore',
+                pointValue: '10'
+            },
+            {
+                text: 'Junior',
+                pointValue: '20'
+            },
+            {
+                text: 'Senior',
+                pointValue: '30'
+            }
+        ];
+        $scope.getYears = function(){
+            return years;
+        };
+
+        $scope.cancel = function() {
+            $location.url('/');
+        };
+
         $scope.submitForm = function() {
+            $scope.showValidationMessages = true;
             console.log($scope.user);
         };
 

@@ -28,3 +28,12 @@
   content: "";
   padding: 0;
 }
+
+.radio-group-align {
+  margin-top: 16px;
+}
+
+.input-container-align {
+    margin-top:12px;
+    margin-right: 16px;
+}
