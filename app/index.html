@@ -26,25 +26,28 @@
                 </div>
             </md-toolbar>
 
-            <md-content class="md-padding" layout="column" ng-controller="sidenavCtrl">
+            <md-content flex ng-controller="sidenavCtrl">
 
-                <!-- select box for building -->
-                <md-select placeholder="Building" ng-model="selectedBuilding">
-                    <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
-                </md-select>
+                <div layout-padding layout="column">
+                    <!-- select box for building -->
+                    <md-select placeholder="Building" ng-model="selectedBuilding">
+                        <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
+                    </md-select>
 
-                <!-- select box for floor -->
-                <md-select placeholder="Floor" ng-model="selectedFloor">
-                    <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
-                </md-select>
+                    <!-- select box for floor -->
+                    <md-select placeholder="Floor" ng-model="selectedFloor">
+                        <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
+                    </md-select>
 
-                <!-- select box for room -->
-                <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
-                    <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
-                </md-select>
+                    <!-- select box for room -->
+                    <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
+                        <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
+                    </md-select>
+                </div>
 
             </md-content>
 
+            <md-button md-color-primary> Add a review </md-button>
             <!-- footer -->
             <md-content class="md-padding footer"><h6>Designed by Amar Dhingra and David Watkins</h6></md-content>
         </md-sidenav>
