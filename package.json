@@ -1,6 +1,6 @@
 {
   "name": "roomsatcu",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Review dormitory rooms at Columbia University",
   "author": "Amar Dhingra and David Watkins",
   "scripts": {
@@ -18,7 +18,8 @@
     "body-parser": "*",
     "method-override": "*",
     "python-shell": "*",
-    "errorHandler": "*"
+    "errorHandler": "*",
+    "serve-favicon": "*"
   },
   "preferGlobal": true,
   "private": true,

@@ -86,7 +86,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         };
 
         $scope.getBuildings = function(){
-            if($scope.roomRegistry === null){
+            if($scope.roomRegistry === null || $scope.roomRegistry === undefined){
                 return [];
             }
 
@@ -131,8 +131,6 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
 
     .controller('roomInformationCtrl', ['$scope', 'restService', function($scope, restService){
 
-        $scope.variable = 5;
-
         $scope.reviews = [{
                 title: 'Review 1',
                 review: 'Whatever, I lived here for a year. It was okay I guess.',
@@ -162,6 +160,53 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
                     console.log('Error in /getRoomInformation. Error code ' + status);
                 }
             )
+        };
+
+        init();
+
+
+    }])
+
+    .controller('formCtrl', ['$scope', 'restService', function($scope, restService){
+
+        $scope.getBuildings = function() {
+            if($scope.roomRegistry === null || $scope.roomRegistry === undefined){
+                return [];
+            }
+
+            return Object.keys($scope.roomRegistry);
+        };
+
+        $scope.getFloors = function() {
+
+            if($scope.roomRegistry === null || $scope.user === undefined ||  $scope.user.building === undefined){
+                return [];
+            }
+
+            return Object.keys($scope.roomRegistry[$scope.user.building]);
+        };
+
+        $scope.getRooms = function() {
+            if($scope.roomRegistry === null || $scope.user === undefined || $scope.user.building === undefined || $scope.user.floor === undefined){
+                return [];
+            }
+
+            return ($scope.roomRegistry[$scope.user.building])[$scope.user.floor];
+        };
+
+        $scope.submitForm = function() {
+            console.log($scope.user);
+        };
+
+        var init = function(){
+            restService.makeGETRequest('/getRoomRegistry',
+                function(data) {
+                    $scope.roomRegistry = data;
+                },
+                function(data, status){
+                    console.log('Error in /getRoomRegistry. Error code ' + status);
+                }
+            );
         };
 
         init();
