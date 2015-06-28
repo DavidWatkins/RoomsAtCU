@@ -1,8 +1,5 @@
-<md-content flex class="md-padding" ng-controller="roomInformationCtrl">
+<md-content flex class="md-padding" ng-controller="roomInformationCtrl" style="height: 100vh; overflow-y: auto">
     <h2 class="text-title">{{getRoomTitle()}}</h2>
-    <img ng-src="{{getImgSrc()}}"/>
-
-
     <div class="md-padding" layout="row">
 
         <!-- Basic room information goes here -->
@@ -30,4 +27,8 @@
             </md-grid-list>
         </div>
     </div>
+    <img style="max-width: 100%; max-height: 600px" ng-src="{{getImgSrc()}}"/>
+
+
+
 </md-content>
