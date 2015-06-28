@@ -10,7 +10,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
                     templateUrl: 'views/room_information.html',
                     controller: function() {}
                 }).
-                when('/reivew', {
+                when('/form', {
                     templateUrl: 'views/form.html',
                     controller: function() {}
                 }).
@@ -36,6 +36,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
 
             $http.post(URL, data)
                 .success(function(data, status, headers, config) {
+                    console.log('post success');
                     successFunction(data, status, headers, config);
                 }).
                 error(function(data, status, headers, config) {
@@ -46,7 +47,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         var onRoomSelectedSuccess, onRoomSelectedFailure;
 
         this.registerOnRoomSelectedCallback = function(successFunction, failureFunction){
-
+            console.log('callbacks registered');
             onRoomSelectedSuccess = successFunction;
             onRoomSelectedFailure = failureFunction;
         };
@@ -56,7 +57,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         }
     }])
 
-    .controller('sidenavCtrl', ['$scope', 'restService', function($scope, restService){
+    .controller('sidenavCtrl', ['$scope', '$location','restService', function($scope, $location, restService){
 
         $scope.roomRegistry = null;
 
@@ -65,6 +66,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         var prevSelectedRoom = null;
 
         $scope.onRoomSelected = function(){
+
             if($scope.selectedBuilding === undefined ||
                $scope.selectedFloor === undefined ||
                $scope.selectedRoom === undefined || (
@@ -79,6 +81,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             prevSelectedFloor = $scope.selectedFloor;
             prevSelectedRoom = $scope.selectedRoom;
 
+            $location.url('/');
             restService.onRoomSelected({ building: $scope.selectedBuilding, floor: $scope.selectedFloor, room: $scope.selectedRoom });
         };
 
@@ -107,6 +110,10 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             return ($scope.roomRegistry[$scope.selectedBuilding])[$scope.selectedFloor];
         };
 
+        $scope.addReview = function(){
+            $location.url('/form');
+        };
+
         var init = function(){
             restService.makeGETRequest('/getRoomRegistry',
                 function(data) {
@@ -124,6 +131,8 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
 
     .controller('roomInformationCtrl', ['$scope', 'restService', function($scope, restService){
 
+        $scope.variable = 5;
+
         $scope.reviews = [{
                 title: 'Review 1',
                 review: 'Whatever, I lived here for a year. It was okay I guess.',
@@ -133,7 +142,6 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
 
 
         $scope.getRoomTitle = function(){
-
             if($scope.roomInformation === undefined || $scope.roomInformation === null){
                 return '';
             }

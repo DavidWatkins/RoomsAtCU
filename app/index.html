@@ -11,48 +11,53 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 </head>
 
-<>
+<body>
 
     <section layout="row" flex style="height:inherit">
 
         <!-- sidenav for room selection -->
-        <md-sidenav flex class="md-sidenav-left md-whiteframe-z1" md-component-id="sidenav" md-is-locked-open="true">
+        <md-sidenav flex class="md-whiteframe-z1" md-component-id="sidenav" md-is-locked-open="true">
+            <div flex ng-controller="sidenavCtrl">
+                <md-toolbar>
+                    <div class="md-toolbar-tools md-whiteframe-z2">
+                        <h2>
+                            <span>Rooms@CU</span>
+                        </h2>
+                    </div>
+                </md-toolbar>
 
-            <md-toolbar>
-                <div class="md-toolbar-tools md-whiteframe-z2">
-                    <h2>
-                        <span>Rooms@CU</span>
-                    </h2>
-                </div>
-            </md-toolbar>
+                <md-content flex>
 
-            <md-content flex ng-controller="sidenavCtrl">
+                    <div layout-padding layout="column">
+                        <!-- select box for building -->
+                        <md-select placeholder="Building" ng-model="selectedBuilding">
+                            <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
+                        </md-select>
 
-                <div layout-padding layout="column">
-                    <!-- select box for building -->
-                    <md-select placeholder="Building" ng-model="selectedBuilding">
-                        <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
-                    </md-select>
+                        <!-- select box for floor -->
+                        <md-select placeholder="Floor" ng-model="selectedFloor">
+                            <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
+                        </md-select>
 
-                    <!-- select box for floor -->
-                    <md-select placeholder="Floor" ng-model="selectedFloor">
-                        <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
-                    </md-select>
+                        <!-- select box for room -->
+                        <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
+                            <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
+                        </md-select>
+                    </div>
 
-                    <!-- select box for room -->
-                    <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
-                        <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
-                    </md-select>
-                </div>
+                </md-content>
 
-            </md-content>
-
-            <md-button ng-click="addReview()"> Add a review </md-button>
-            <!-- footer -->
-            <md-content class="md-padding footer"><h6>Designed by Amar Dhingra and David Watkins</h6></md-content>
+                <!-- footer -->
+                <md-bottom-sheet style="border-top: none">
+                    <div align="center" style="padding-right: 16px;">
+                        <md-button class="md-primary md-raised" style="width: 100%" ng-click="addReview()"> review your room </md-button>
+                        <md-content><h6>Designed by Amar Dhingra and David Watkins</h6></md-content>
+                    </div>
+                </md-bottom-sheet>
+            </div>
         </md-sidenav>
 
-        <div ng-view></div>
+        <div ng-view flex></div>
 
     </section>
 
