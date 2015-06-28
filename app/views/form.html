@@ -1,74 +1,49 @@
-<div layout="column">
-    <md-content md-theme="docs-dark" layout-padding layout="row" layout-sm="column">
-        <md-input-container>
-            <label>Title</label>
-            <input ng-model="user.title">
-        </md-input-container>
-        <md-input-container>
-            <label>Email</label>
-            <input ng-model="user.email" type="email">
-        </md-input-container>
-    </md-content>
+<div ng-controller="FormCtrl" layout="column">
+    <!-- Stuff we need to do:
+         Room Type
+         Enter in rooms
+         Windows
+         Walk in closet
+         radiator/air conditioning?-->
     <md-content layout-padding>
         <form name="userForm">
-            <div layout layout-sm="column">
-                <md-input-container style="width:80%">
-                    <label>Company (Disabled)</label>
-                    <input ng-model="user.company" disabled>
-                </md-input-container>
-                <md-input-container flex>
-                    <label>Submission Date</label>
-                    <input type="date" ng-model="user.submissionDate">
-                </md-input-container>
-            </div>
-            <div layout layout-sm="column">
-                <md-input-container flex>
-                    <label>First name</label>
-                    <input ng-model="user.firstName">
-                </md-input-container>
-                <md-input-container flex>
-                    <label>Last Name</label>
-                    <input ng-model="theMax">
-                </md-input-container>
-            </div>
-            <md-input-container flex>
-                <label>Address</label>
-                <input ng-model="user.address">
-            </md-input-container>
-            <md-input-container md-no-float>
-                <input ng-model="user.address2" placeholder="Address 2">
-            </md-input-container>
-            <div layout layout-sm="column">
-                <md-input-container flex>
-                    <label>City</label>
-                    <input ng-model="user.city">
-                </md-input-container>
-                <md-input-container flex>
-                    <label>State</label>
-                    <input ng-model="user.state">
-                </md-input-container>
-                <md-input-container flex>
-                    <label>Postal Code</label>
-                    <input ng-model="user.postalCode">
-                </md-input-container>
-            </div>
-            <md-input-container flex>
-                <label>Biography</label>
-                <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea>
-            </md-input-container>
+            <h1>Enter Room {{RoomNumber}} Information</h1>
+            <md-select placeholder="Select Building" ng-model="user.building">
+                <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
+            </md-select>
+            <md-select placeholder="Select Floor" ng-model="user.floor">
+                <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
+            </md-select>
+            <md-select placeholder="Select Room" ng-model="user.room">
+                <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
+            </md-select>
+            <p>Rate your room's heating:</p>
+            <md-radio-group ng-model="user.heaterRating">
+                <md-radio-button value="1">1</md-radio-button>
+                <md-radio-button value="2">2</md-radio-button>
+                <md-radio-button value="3">3</md-radio-button>
+                <md-radio-button value="4">4</md-radio-button>
+                <md-radio-button value="5">5</md-radio-button>
+            </md-radio-group>
+            <p>Rate your room's view:</p>
+            <md-radio-group ng-model="user.viewRating">
+                <md-radio-button value="1">1</md-radio-button>
+                <md-radio-button value="2">2</md-radio-button>
+                <md-radio-button value="3">3</md-radio-button>
+                <md-radio-button value="4">4</md-radio-button>
+                <md-radio-button value="5">5</md-radio-button>
+            </md-radio-group>
+            <p>How many drawers are there in your dresser?:</p>
+            <md-radio-group ng-model="user.viewRating">
+                <md-radio-button value="3">3</md-radio-button>
+                <md-radio-button value="5">5</md-radio-button>
+            </md-radio-group>
+            <p>What type of flooring do you have?:</p>
+            <md-radio-group ng-model="user.flooringType">
+                <md-radio-button value="Wood">Wood</md-radio-button>
+                <md-radio-button value="Carpet">Carpet</md-radio-button>
+                <md-radio-button value="Tile">Tile</md-radio-button>
+            </md-radio-group>
         </form>
     </md-content>
 </div>
-
-
-{
-    title: "Title",
-    inputs: [
-        {
-            type: "date",
-            varName: "varName",
-            //if type==radio
-            range: "5",
-            //if type==
-
-    ]
