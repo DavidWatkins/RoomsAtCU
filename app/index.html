@@ -52,39 +52,7 @@
             <md-content class="md-padding footer"><h6>Designed by Amar Dhingra and David Watkins</h6></md-content>
         </md-sidenav>
 
-        <md-content flex class="md-padding" ng-controller="roomInformationCtrl">
-            <h2 class="text-title">{{getRoomTitle()}}</h2>
-            <img ng-src="{{getImgSrc()}}"/>
-
-
-            <div class="md-padding" layout="row">
-
-                <!-- Basic room information goes here -->
-                <div flex="25">
-                    <h3> Room Specifics </h3>
-                    <div flex="100" class="md-whiteframe-z1 md-padding">{{getRoomInformation()}}</div>
-                </div>
-                <span flex></span>
-
-                <!-- Specific reviews about a room go here -->
-                <div flex="70">
-                    <h3> Reviews </h3>
-                    <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-                    md-row-height-gt-md="1:1" md-row-height="4:1"
-                    md-gutter="12px" md-gutter-gt-sm="8px">
-
-                        <md-grid-tile ng-repeat="review in reviews"
-                                class="md-whiteframe-z1"
-                                md-rowspan="1" md-colspan="1">
-                            <md-grid-tile-header class="md-padding">{{review.getHeader()}}</md-grid-tile-header>
-                            <div class="md-padding">{{review.getReview()}}</div>
-                            <!--<md-grid-tile-footer></md-grid-tile-footer>-->
-                        </md-grid-tile>
-
-                    </md-grid-list>
-                </div>
-            </div>
-        </md-content>
+        <div ng-view></div>
 
     </section>
 
