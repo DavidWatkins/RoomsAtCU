@@ -1,7 +1,23 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ngMaterial'])
+angular.module('myApp', ['ngMaterial', 'ngRoute'])
+
+    .config(['$routeProvider',
+        function($routeProvider) {
+            $routeProvider.
+                when('/', {
+                    templateUrl: 'views/room_information.html',
+                    controller: function() {}
+                }).
+                when('/reivew', {
+                    templateUrl: 'views/form.html',
+                    controller: function() {}
+                }).
+                otherwise({
+                    redirectTo: '/'
+                });
+        }])
 
     .service('restService', ['$http', function($http){
 
@@ -9,7 +25,6 @@ angular.module('myApp', ['ngMaterial'])
 
             $http.get(URL)
                 .success(function(data, status, headers, config) {
-                    console.log(data);
                     successFunction(data, status, headers, config);
                 }).
                 error(function(data, status, headers, config) {
@@ -95,7 +110,6 @@ angular.module('myApp', ['ngMaterial'])
         var init = function(){
             restService.makeGETRequest('/getRoomRegistry',
                 function(data) {
-                    console.log(data);
                     $scope.roomRegistry = data;
                 },
                 function(data, status){
