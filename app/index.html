@@ -16,75 +16,48 @@
     <section layout="row" flex style="height:inherit">
 
         <!-- sidenav for room selection -->
-        <md-sidenav flex class="md-sidenav-left md-whiteframe-z1" md-component-id="sidenav" md-is-locked-open="true">
+        <md-sidenav flex class="md-whiteframe-z1" md-component-id="sidenav" md-is-locked-open="true">
+            <div flex ng-controller="sidenavCtrl">
+                <md-toolbar>
+                    <div class="md-toolbar-tools md-whiteframe-z2">
+                        <h2>
+                            <span>Rooms@CU</span>
+                        </h2>
+                    </div>
+                </md-toolbar>
 
-            <md-toolbar>
-                <div class="md-toolbar-tools md-whiteframe-z2">
-                    <h2>
-                        <span>Rooms@CU</span>
-                    </h2>
-                </div>
-            </md-toolbar>
+                <md-content flex>
 
-            <md-content flex ng-controller="sidenavCtrl">
+                    <div layout-padding layout="column">
+                        <!-- select box for building -->
+                        <md-select placeholder="Building" ng-model="selectedBuilding">
+                            <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
+                        </md-select>
 
-                <div layout-padding layout="column">
-                    <!-- select box for building -->
-                    <md-select placeholder="Building" ng-model="selectedBuilding">
-                        <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
-                    </md-select>
+                        <!-- select box for floor -->
+                        <md-select placeholder="Floor" ng-model="selectedFloor">
+                            <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
+                        </md-select>
 
-                    <!-- select box for floor -->
-                    <md-select placeholder="Floor" ng-model="selectedFloor">
-                        <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
-                    </md-select>
+                        <!-- select box for room -->
+                        <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
+                            <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
+                        </md-select>
+                    </div>
 
-                    <!-- select box for room -->
-                    <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
-                        <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
-                    </md-select>
-                </div>
+                </md-content>
 
-            </md-content>
-
-            <md-button md-color-primary> Add a review </md-button>
-            <!-- footer -->
-            <md-content class="md-padding footer"><h6>Designed by Amar Dhingra and David Watkins</h6></md-content>
+                <!-- footer -->
+                <md-bottom-sheet style="border-top: none">
+                    <div align="center" style="padding-right: 16px;">
+                        <md-button class="md-primary md-raised" style="width: 100%" ng-click="addReview()"> review your room </md-button>
+                        <md-content><h6>Designed by Amar Dhingra and David Watkins</h6></md-content>
+                    </div>
+                </md-bottom-sheet>
+            </div>
         </md-sidenav>
 
-        <md-content flex class="md-padding" ng-controller="roomInformationCtrl">
-            <h2 class="text-title">{{getRoomTitle()}}</h2>
-            <img ng-src="{{getImgSrc()}}"/>
-
-
-            <div class="md-padding" layout="row">
-
-                <!-- Basic room information goes here -->
-                <div flex="25">
-                    <h3> Room Specifics </h3>
-                    <div flex="100" class="md-whiteframe-z1 md-padding"> Stuff about the room</div>
-                </div>
-                <span flex></span>
-
-                <!-- Specific reviews about a room go here -->
-                <div flex="70">
-                    <h3> Reviews </h3>
-                    <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-                    md-row-height-gt-md="1:1" md-row-height="4:1"
-                    md-gutter="12px" md-gutter-gt-sm="8px">
-
-                        <md-grid-tile ng-repeat="review in reviews"
-                                class="md-whiteframe-z1"
-                                md-rowspan="1" md-colspan="1">
-                            <md-grid-tile-header class="md-padding">{{review.getHeader()}}</md-grid-tile-header>
-                            <div class="md-padding">{{review.getReview()}}</div>
-                            <!--<md-grid-tile-footer></md-grid-tile-footer>-->
-                        </md-grid-tile>
-
-                    </md-grid-list>
-                </div>
-            </div>
-        </md-content>
+        <div ng-view flex></div>
 
     </section>
 
@@ -93,6 +66,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://code.angularjs.org/1.3.15/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
     <script src="app.js"></script>
 

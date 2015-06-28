@@ -1,7 +1,23 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('myApp', ['ngMaterial'])
+angular.module('myApp', ['ngMaterial', 'ngRoute'])
+
+    .config(['$routeProvider',
+        function($routeProvider) {
+            $routeProvider.
+                when('/', {
+                    templateUrl: 'views/room_information.html',
+                    controller: function() {}
+                }).
+                when('/form', {
+                    templateUrl: 'views/form.html',
+                    controller: function() {}
+                }).
+                otherwise({
+                    redirectTo: '/'
+                });
+        }])
 
     .service('restService', ['$http', function($http){
 
@@ -9,7 +25,6 @@ angular.module('myApp', ['ngMaterial'])
 
             $http.get(URL)
                 .success(function(data, status, headers, config) {
-                    console.log(data);
                     successFunction(data, status, headers, config);
                 }).
                 error(function(data, status, headers, config) {
@@ -21,6 +36,7 @@ angular.module('myApp', ['ngMaterial'])
 
             $http.post(URL, data)
                 .success(function(data, status, headers, config) {
+                    console.log('post success');
                     successFunction(data, status, headers, config);
                 }).
                 error(function(data, status, headers, config) {
@@ -31,7 +47,7 @@ angular.module('myApp', ['ngMaterial'])
         var onRoomSelectedSuccess, onRoomSelectedFailure;
 
         this.registerOnRoomSelectedCallback = function(successFunction, failureFunction){
-
+            console.log('callbacks registered');
             onRoomSelectedSuccess = successFunction;
             onRoomSelectedFailure = failureFunction;
         };
@@ -41,7 +57,7 @@ angular.module('myApp', ['ngMaterial'])
         }
     }])
 
-    .controller('sidenavCtrl', ['$scope', 'restService', function($scope, restService){
+    .controller('sidenavCtrl', ['$scope', '$location','restService', function($scope, $location, restService){
 
         $scope.roomRegistry = null;
 
@@ -50,6 +66,7 @@ angular.module('myApp', ['ngMaterial'])
         var prevSelectedRoom = null;
 
         $scope.onRoomSelected = function(){
+
             if($scope.selectedBuilding === undefined ||
                $scope.selectedFloor === undefined ||
                $scope.selectedRoom === undefined || (
@@ -64,6 +81,7 @@ angular.module('myApp', ['ngMaterial'])
             prevSelectedFloor = $scope.selectedFloor;
             prevSelectedRoom = $scope.selectedRoom;
 
+            $location.url('/');
             restService.onRoomSelected({ building: $scope.selectedBuilding, floor: $scope.selectedFloor, room: $scope.selectedRoom });
         };
 
@@ -92,10 +110,13 @@ angular.module('myApp', ['ngMaterial'])
             return ($scope.roomRegistry[$scope.selectedBuilding])[$scope.selectedFloor];
         };
 
+        $scope.addReview = function(){
+            $location.url('/form');
+        };
+
         var init = function(){
             restService.makeGETRequest('/getRoomRegistry',
                 function(data) {
-                    console.log(data);
                     $scope.roomRegistry = data;
                 },
                 function(data, status){
@@ -110,6 +131,8 @@ angular.module('myApp', ['ngMaterial'])
 
     .controller('roomInformationCtrl', ['$scope', 'restService', function($scope, restService){
 
+        $scope.variable = 5;
+
         $scope.reviews = [{
                 title: 'Review 1',
                 review: 'Whatever, I lived here for a year. It was okay I guess.',
@@ -119,7 +142,6 @@ angular.module('myApp', ['ngMaterial'])
 
 
         $scope.getRoomTitle = function(){
-
             if($scope.roomInformation === undefined || $scope.roomInformation === null){
                 return '';
             }

@@ -18,7 +18,6 @@ app.get('/getRoomRegistry', function(req, res) {
 	  	if (err){ 
   	  		throw err;
   	  	}
-  	  	console.log(results[0]);
   	  	res.send(results[0]);
 	});
 });
@@ -26,6 +25,7 @@ app.get('/getRoomRegistry', function(req, res) {
 app.post('/getRoomInformation', function(req, res) {
 
 	console.log(req.body);
+	res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
 
 });
 
