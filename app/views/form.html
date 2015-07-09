@@ -7,32 +7,48 @@
          radiator/air conditioning?-->
     <div ng-controller="formCtrl">
         <md-content layout-padding>
-            <form name="userForm">
+            <form name="reviewForm" novalidate>
+
                 <h1>Enter Room {{RoomNumber}} Information</h1>
 
                 Building:
-                <md-select placeholder="Select Building" ng-model="user.building" required>
+                <md-select placeholder="Select Building" name="building" ng-model="form.building" required>
                     <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
                 </md-select>
+                <span class="error" ng-messages="reviewForm.building.$error" ng-if="displayErrors">
+                    <span ng-message="required">Please select a building to review</span>
+                </span>
                 <br>
                 Floor:
-                <md-select placeholder="Select Floor" ng-model="user.floor" required>
+                <md-select placeholder="Select Floor" name="floor" ng-model="form.floor" required>
                     <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
                 </md-select>
+                <span class="error" ng-messages="reviewForm.floor.$error" ng-if="displayErrors">
+                    <span ng-message="required">Please select a floor to review</span>
+                </span>
                 <br>
                 Room:
-                <md-select placeholder="Select Room" ng-model="user.room" required>
+                <md-select placeholder="Select Room" name="room" ng-model="form.room" required>
                     <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
                 </md-select>
+                <span class="error" ng-messages="reviewForm.room.$error" ng-if="displayErrors">
+                    <span ng-message="required">Please select a room to review</span>
+                </span>
                 <br>
                 Year:
-                <md-select placeholder="Year" ng-model="user.year" required>
+                <md-select placeholder="Year" name="year" ng-model="form.year" required>
                     <md-option ng-repeat="year in getYears()" value="{{year.text}}">{{year.text + ' (' + year.pointValue + ')'}}</md-option>
                 </md-select>
+                <span class="error" ng-messages="reviewForm.year.$error" ng-if="displayErrors">
+                    <span ng-message="required">Please select what year you lived in the room</span>
+                </span>
                 <div layout="row">
                     <span class="input-container-align" style="">Lottery Number:</span>
-                    <md-input-container md-no-float required>
-                        <input ng-model="user.lottery" name="lottery" type="number" min="1" max="3000">
+                    <md-input-container name="lottery" md-no-float required>
+                        <input ng-model="form.lottery" name="lottery" type="number" min="1" max="3000">
+                        <div class="error" ng-messages="reviewForm.lottery.$error" ng-if="displayErrors">
+                            <span ng-message="required">Required</span>
+                        </div>
                     </md-input-container>
                 </div>
                 <div layout="row">

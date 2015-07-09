@@ -7,6 +7,10 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         function($routeProvider) {
             $routeProvider.
                 when('/', {
+                    template: '',
+                    controller: function() {}
+                }).
+                when('/review', {
                     templateUrl: 'views/room_information.html',
                     controller: function() {}
                 }).
@@ -19,132 +23,132 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
                 });
         }])
 
-    .service('restService', ['$http', function($http){
+    .service('roomService', ['$http', '$location', function($http, $location){
 
-        this.makeGETRequest = function(URL, successFunction, failureFunction){
+        var self = this;
 
-            $http.get(URL)
+        this.roomRegistry = {};
+        this.selectedRoom = null;
+        this.roomInformation = null;
+
+        this.years = [ { text: 'Freshman', pointValue: 'N/A' }, { text: 'Sophomore', pointValue: '10' }, { text: 'Junior', pointValue: '20'}, { text: 'Senior', pointValue: '30'} ];
+
+
+        var loadRoomRegistry = function(){
+            $http.get('/getRoomRegistry')
                 .success(function(data, status, headers, config) {
-                    successFunction(data, status, headers, config);
+                    self.roomRegistry = data;
                 }).
                 error(function(data, status, headers, config) {
-                    failureFunction(data, status, headers, config);
+                    console.log('Failed to load room registry. Received error code ' + status);
                 });
         };
 
-        this.makePOSTRequest = function(URL, data, successFunction, failureFunction){
+        var loadRoomInformation = function(){
 
-            $http.post(URL, data)
+            if(self.selectedRoom === undefined || self.selectedRoom === null ||
+                self.selectedRoom.building === undefined || self.selectedRoom.floor === undefined ||
+                self.selectedRoom.room === undefined){
+                console.log('loadRoomInformation called when selected room was ' + self.selectedRoom);
+            }
+
+            $http.post('/getRoomInformation', self.selectedRoom)
                 .success(function(data, status, headers, config) {
-                    console.log('post success');
-                    successFunction(data, status, headers, config);
+                    self.roomInformation = data;
+                    $location.url('/review');
                 }).
                 error(function(data, status, headers, config) {
-                    failureFunction(data, status, headers, config);
+                    console.log('Failed to load room informaation. Received error code ' + status);
                 });
         };
 
-        var onRoomSelectedSuccess, onRoomSelectedFailure;
-
-        this.registerOnRoomSelectedCallback = function(successFunction, failureFunction){
-            console.log('callbacks registered');
-            onRoomSelectedSuccess = successFunction;
-            onRoomSelectedFailure = failureFunction;
-        };
-
-        this.onRoomSelected = function(data){
-            this.makePOSTRequest('/getRoomInformation', data, onRoomSelectedSuccess, onRoomSelectedFailure);
-        }
-    }])
-
-    .controller('sidenavCtrl', ['$scope', '$location','restService', function($scope, $location, restService){
-
-        $scope.roomRegistry = null;
-
-        var prevSelectedBuilding = null;
-        var prevSelectedFloor = null;
-        var prevSelectedRoom = null;
-
-        $scope.onRoomSelected = function(){
-
-            if($scope.selectedBuilding === undefined ||
-               $scope.selectedFloor === undefined ||
-               $scope.selectedRoom === undefined || (
-               $scope.selectedBuilding === prevSelectedBuilding &&
-               $scope.selectedFloor === prevSelectedFloor &&
-               $scope.selectedRoom === prevSelectedRoom ) ||
-               !(($scope.roomRegistry[$scope.selectedBuilding])[$scope.selectedFloor].indexOf($scope.selectedRoom) > -1)){
-                return;
-            }
-
-            prevSelectedBuilding = $scope.selectedBuilding;
-            prevSelectedFloor = $scope.selectedFloor;
-            prevSelectedRoom = $scope.selectedRoom;
-
-            $location.url('/');
-            restService.onRoomSelected({ building: $scope.selectedBuilding, floor: $scope.selectedFloor, room: $scope.selectedRoom });
-        };
-
-        $scope.getBuildings = function(){
-            if($scope.roomRegistry === null || $scope.roomRegistry === undefined){
-                return [];
-            }
-
-            return Object.keys($scope.roomRegistry);
-        };
-
-        $scope.getFloors = function(){
-
-            if($scope.roomRegistry === null || $scope.selectedBuilding === undefined){
-                return [];
-            }
-
-            return Object.keys($scope.roomRegistry[$scope.selectedBuilding]);
-        };
-
-        $scope.getRooms = function(){
-            if($scope.roomRegistry === null || $scope.selectedBuilding === undefined || $scope.selectedFloor === undefined){
-                return [];
-            }
-
-            return ($scope.roomRegistry[$scope.selectedBuilding])[$scope.selectedFloor];
-        };
-
-        $scope.addReview = function(){
+        this.startReview = function(){
             $location.url('/form');
         };
 
-        var init = function(){
-            restService.makeGETRequest('/getRoomRegistry',
-                function(data) {
-                    $scope.roomRegistry = data;
-                },
-                function(data, status){
-                    console.log('Error in /getRoomRegistry. Error code ' + status);
-                }
-            );
+        this.housekeeping = function(){
+            $location.url('/');
         };
 
-        init();
+        this.submitForm = function(form){
+
+            $http.post('/addReview', form)
+                .success(function(data, status, headers, config) {
+                    self.loadRoomRegistry();
+                }).
+                error(function(data, status, headers, config) {
+                    console.log('Failed to submit form. Received error code ' + status);
+                });
+        };
+
+        this.setSelectedRoom = function(building, floor, room){
+            this.selectedRoom = {
+                building: building,
+                floor: floor,
+                room: room
+            };
+            loadRoomInformation();
+        };
+
+
+        loadRoomRegistry();
 
     }])
 
-    .controller('roomInformationCtrl', ['$scope', 'restService', function($scope, restService){
+    .controller('sidenavCtrl', ['$scope','roomService', function($scope, roomService){
 
-        $scope.reviews = [{
-                title: 'Review 1',
-                review: 'Whatever, I lived here for a year. It was okay I guess.',
-                getHeader: function(){ return this.title; },
-                getReview: function() {return this.review; }
-            }];
+        var isDefined = function(obj){
+            return ((obj === undefined || obj === null) ? false : true);
+        };
 
+        $scope.getBuildings = function(){
+            return isDefined(roomService.roomRegistry) ? Object.keys(roomService.roomRegistry) : [];
+        };
+
+        $scope.buildingSelected = function(){
+            $scope.selectedFloor = undefined;
+            $scope.selectedRoom = undefined;
+        };
+
+        $scope.getFloors = function(){
+            return (isDefined(roomService.roomRegistry) && isDefined($scope.selectedBuilding)) ?
+                Object.keys(roomService.roomRegistry[$scope.selectedBuilding]) : [];
+        };
+
+        $scope.floorSelected = function(){
+            $scope.selectedRoom = undefined;
+        };
+
+        $scope.getRooms = function(){
+            return (isDefined(roomService.roomRegistry) && isDefined($scope.selectedBuilding) && isDefined($scope.selectedFloor)) ?
+                (roomService.roomRegistry[$scope.selectedBuilding])[$scope.selectedFloor] : [];
+        };
+
+        $scope.roomSelected = function(){
+            if( isDefined($scope.selectedBuilding) && isDefined($scope.selectedFloor) && isDefined($scope.selectedRoom)) {
+                roomService.setSelectedRoom($scope.selectedBuilding, $scope.selectedFloor, $scope.selectedRoom);
+            }
+        };
+
+        $scope.addReview = function(){
+            roomService.startReview();
+        };
+
+    }])
+
+    .controller('roomInformationCtrl', ['$scope', 'roomService', function($scope, roomService){
+
+        var isDefined = function(obj){
+            return ((obj === undefined || obj === null) ? false : true);
+        };
 
         $scope.getRoomTitle = function(){
-            if($scope.roomInformation === undefined || $scope.roomInformation === null){
+            if(!isDefined(roomService.roomInformation)){
+
                 return '';
             }
 
-            return $scope.roomInformation.building + ' ' + $scope.roomInformation.room;
+            return roomService.roomInformation.building + ' ' + roomService.roomInformation.room;
         };
 
         $scope.getImgSrc = function(){
@@ -155,93 +159,55 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             return 'floor_plans/' + $scope.roomInformation.building + '-' + $scope.roomInformation.floor + '.jpg';
         };
 
-        var init = function(){
-            restService.registerOnRoomSelectedCallback(
-                function(data){
-                    $scope.roomInformation = data;
-                },
-                function(data, status){
-                    console.log('Error in /getRoomInformation. Error code ' + status);
-                }
-            )
-        };
-
-        init();
+        if(roomService.roomInformation == null){
+            roomService.housekeeping();
+        }
 
 
     }])
 
-    .controller('formCtrl', ['$scope', '$location', 'restService', function($scope, $location, restService){
+    .controller('formCtrl', ['$scope', '$location', 'roomService', function($scope, $location, roomService){
 
-        $scope.getBuildings = function() {
-            if($scope.roomRegistry === null || $scope.roomRegistry === undefined){
-                return [];
-            }
-
-            return Object.keys($scope.roomRegistry);
+        var isDefined = function(obj){
+            return ((obj === undefined || obj === null) ? false : true);
         };
 
-        $scope.getFloors = function() {
-
-            if($scope.roomRegistry === null || $scope.user === undefined ||  $scope.user.building === undefined){
-                return [];
-            }
-
-            return Object.keys($scope.roomRegistry[$scope.user.building]);
+        $scope.getBuildings = function(){
+            return isDefined(roomService.roomRegistry) ? Object.keys(roomService.roomRegistry) : [];
         };
 
-        $scope.getRooms = function() {
-            if($scope.roomRegistry === null || $scope.user === undefined || $scope.user.building === undefined || $scope.user.floor === undefined){
-                return [];
-            }
-
-            return ($scope.roomRegistry[$scope.user.building])[$scope.user.floor];
+        $scope.getFloors = function(){
+            return (isDefined(roomService.roomRegistry) && isDefined($scope.form.building)) ?
+                Object.keys(roomService.roomRegistry[$scope.form.building]) : [];
         };
 
-        var years = [
-            {
-                text: 'Freshman',
-                pointValue: 'N/A'
-            },
-            {
-                text: 'Sophomore',
-                pointValue: '10'
-            },
-            {
-                text: 'Junior',
-                pointValue: '20'
-            },
-            {
-                text: 'Senior',
-                pointValue: '30'
-            }
-        ];
+        $scope.getRooms = function(){
+            return (isDefined(roomService.roomRegistry) && isDefined($scope.form.building) && isDefined($scope.form.floor)) ?
+                (roomService.roomRegistry[$scope.building])[$scope.floor] : [];
+        };
+
         $scope.getYears = function(){
-            return years;
+            return roomService.years;
         };
 
         $scope.cancel = function() {
             $location.url('/');
         };
 
+        var formIsValid = function(){
+            return false;
+        };
+
         $scope.submitForm = function() {
-            $scope.showValidationMessages = true;
-            console.log($scope.user);
+            if(!formIsValid()){
+                $scope.displayErrors = true;
+                return;
+            }
+            roomService.submitForm($scope.form);
         };
 
-        var init = function(){
-            restService.makeGETRequest('/getRoomRegistry',
-                function(data) {
-                    $scope.roomRegistry = data;
-                },
-                function(data, status){
-                    console.log('Error in /getRoomRegistry. Error code ' + status);
-                }
-            );
-        };
-
-        init();
-
+        $scope.form = {};
+        $scope.displayErrors = false;
 
     }]);
 

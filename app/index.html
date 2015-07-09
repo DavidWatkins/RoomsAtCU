@@ -31,17 +31,17 @@
 
                     <div layout-padding layout="column">
                         <!-- select box for building -->
-                        <md-select placeholder="Building" ng-model="selectedBuilding">
+                        <md-select placeholder="Building" ng-model="selectedBuilding" ng-change="buildingSelected()">
                             <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
                         </md-select>
 
                         <!-- select box for floor -->
-                        <md-select placeholder="Floor" ng-model="selectedFloor">
+                        <md-select placeholder="Floor" ng-model="selectedFloor" ng-change="floorSelected()">
                             <md-option ng-repeat="floor in getFloors()" value="{{floor}}">{{floor}}</md-option>
                         </md-select>
 
                         <!-- select box for room -->
-                        <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-selected="onRoomSelected()">
+                        <md-select placeholder="Room/Suite" ng-model="selectedRoom" ng-change="roomSelected()">
                             <md-option ng-repeat="room in getRooms()" value="{{room}}">{{room}}</md-option>
                         </md-select>
                     </div>
