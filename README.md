@@ -1,2 +1,6 @@
-# RoomsAtCU
-Rate and read reviews on dorms room around Columbia University campus
+Dependencies that must be installed using npm
+
+body-parser
+errorhandler
+express
+python-shell

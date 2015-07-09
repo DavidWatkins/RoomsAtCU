@@ -1,0 +1,28 @@
+{
+  "name": "roomsatcu",
+  "version": "0.1.0",
+  "description": "Review dormitory rooms at Columbia University",
+  "author": "Amar Dhingra and David Watkins",
+  "scripts": {
+    "test": "",
+    "start": "node roomServer.js",
+    "predeploy": "echo im about to deploy",
+    "postdeploy": "echo ive deployed",
+    "prepublish": ""
+  },
+  "main": "app.js",
+  "dependencies": {
+    "path": "*",
+    "mongoose": "*",
+    "express": "*",
+    "body-parser": "*",
+    "method-override": "*",
+    "python-shell": "*",
+    "errorhandler": "*",
+    "mongodb":"*",
+    "serve-favicon": "*"
+  },
+  "preferGlobal": true,
+  "private": true,
+  "license": "MIT"
+}
