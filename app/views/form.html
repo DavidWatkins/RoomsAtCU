@@ -15,7 +15,7 @@
                 <md-select placeholder="Select Building" name="building" ng-model="form.building" required>
                     <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
                 </md-select>
-                <span class="error" ng-messages="reviewForm.building.$error" ng-if="displayErrors">
+                <span class="error" ng-messages="reviewForm.building.$error">
                     <span ng-message="required">Please select a building to review</span>
                 </span>
                 <br>
