@@ -32,6 +32,7 @@
                     <div layout-padding layout="column">
                         <!-- select box for building -->
                         <md-select placeholder="Building" ng-model="selectedBuilding" ng-change="buildingSelected()">
+                        <md-select placeholder="Building" ng-model="selectedBuilding">
                             <md-option ng-repeat="building in getBuildings()" value="{{building}}">{{building}}</md-option>
                         </md-select>
 

@@ -20,7 +20,7 @@ app.get('/getRoomRegistry', function(req, res) {
 	  	if (err){ 
   	  		throw err;
   	  	}
-        console.log('/getRoomRegistry');
+                console.log('/getRoomRegistry');
   	  	res.send(results[0]);
 	});
 });
@@ -38,6 +38,5 @@ app.post('/getFloorPlan', function(req, res) {
 app.post('/addReview', function(req, res){
     res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
 });
-
 
 app.listen(2627);

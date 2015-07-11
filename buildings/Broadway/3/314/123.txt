@@ -1,0 +1,12 @@
+{
+	'lottery-number':'abc',
+    'point-value':'abc',
+    'view-rating':'abc',
+    'heating':'abc',
+    'radiator':'abc',
+    'ac':'abc',
+    'closet':'abc',
+    'num-windows':'abc',
+    'flooring':'abc',
+    'room-type':'abc',
+}

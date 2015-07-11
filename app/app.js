@@ -162,8 +162,6 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
         if(roomService.roomInformation == null){
             roomService.housekeeping();
         }
-
-
     }])
 
     .controller('formCtrl', ['$scope', '$location', 'roomService', function($scope, $location, roomService){
@@ -208,6 +206,5 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
 
         $scope.form = {};
         $scope.displayErrors = false;
-
     }]);
 
