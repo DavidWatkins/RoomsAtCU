@@ -10,6 +10,8 @@ var application_root = __dirname,
 
 var app = express();
 
+var PORT = 2627;
+
 app.use(bodyParser.json());
 app.use(express.static(path.join(application_root, 'app')));
 app.use(errorHandler({ dumpExceptions: true, showStack: true }));
@@ -39,4 +41,5 @@ app.post('/addReview', function(req, res){
     res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
 });
 
-app.listen(2627);
+console.log('server listening on port ' + PORT)
+app.listen(PORT);
