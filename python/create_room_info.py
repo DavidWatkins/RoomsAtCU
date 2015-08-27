@@ -9,7 +9,9 @@ if len(args) != 2:
 building = args[1]
 
 for floor in os.listdir(building):
+	if floor == '.DS_Store':
+		continue
 	for room in os.listdir(building + '/' + floor):
-		if room == 'floor_plan.jpg':
+		if room == 'floor_plan.jpg' or room == '.DS_Store':
 			continue
 		os.system('touch "' + building + '/' + floor + '/' + room + '/info.json"')
