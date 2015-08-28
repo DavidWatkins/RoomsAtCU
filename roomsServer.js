@@ -14,6 +14,7 @@ var PORT = 2627;
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(application_root, 'app')));
+app.use(express.static(application_root));
 app.use(errorHandler({ dumpExceptions: true, showStack: true }));
 app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
@@ -33,16 +34,12 @@ app.post('/getRoomInformation', function(req, res) {
         if (err) {
             throw err;
         }
-        console.log('/getRoomRegistry');
+        console.log('/getRoomInformation');
         res.send(results[0]);
     });
-    res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
 
 });
 
-app.post('/getFloorPlan', function(req, res) {
-
-});
 
 app.post('/addReview', function(req, res){
     res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});

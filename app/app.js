@@ -55,6 +55,7 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             $http.post('/getRoomInformation', self.selectedRoom)
                 .success(function(data, status, headers, config) {
                     self.roomInformation = data;
+                    console.log(self.roomInformation);
                     $location.url('/review');
                 }).
                 error(function(data, status, headers, config) {
@@ -151,12 +152,21 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             return roomService.roomInformation.building + ' ' + roomService.roomInformation.room;
         };
 
-        $scope.getImgSrc = function(){
-            if($scope.roomInformation === undefined){
-                return '';
+        $scope.getRoomInformation = function(){
+            var infoString = '';
+
+            for(var i in roomService.roomInformation){
+                infoString += i + ': ' + roomService.roomInformation[i] + '\n';
             }
 
-            return 'floor_plans/' + $scope.roomInformation.building + '-' + $scope.roomInformation.floor + '.jpg';
+            return infoString;
+        };
+
+        $scope.getImgSrc = function(){
+            if(!isDefined(roomService.roomInformation)){
+                return '';
+            }
+            return 'buildings/' + roomService.roomInformation.building + '/' + roomService.roomInformation.floor + '/floor_plan.jpg';
         };
 
         if(roomService.roomInformation == null){
