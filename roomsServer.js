@@ -19,16 +19,23 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 
 app.get('/getRoomRegistry', function(req, res) {
 	py.run('read_dirs.py', { mode: 'json' }, function (err, results) {
-	  	if (err){ 
-  	  		throw err;
-  	  	}
-                console.log('/getRoomRegistry');
+	  	if (err) {
+            throw err;
+        }
+        console.log('/getRoomRegistry');
   	  	res.send(results[0]);
 	});
 });
 
 app.post('/getRoomInformation', function(req, res) {
     console.log('/getRoomInformation');
+    py.run('read_info.py', { mode: 'json', args: [req.body.building, req.body.floor, req.body.room]}, function (err, results) {
+        if (err) {
+            throw err;
+        }
+        console.log('/getRoomRegistry');
+        res.send(results[0]);
+    });
     res.send({building: req.body.building, floor: req.body.floor, room: req.body.room});
 
 });
