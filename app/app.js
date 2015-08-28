@@ -162,6 +162,25 @@ angular.module('myApp', ['ngMaterial', 'ngRoute'])
             return infoString;
         };
 
+        $scope.getRoomType = function(){
+            if(!isDefined(roomService.roomInformation)){
+                return '';
+            }
+            return ((roomService.roomInformation['type'] === '') ? 'Unknown' : roomService.roomInformation['type']);
+        };
+        $scope.getRoomArea = function(){
+            if(!isDefined(roomService.roomInformation)){
+                return '';
+            }
+            return ((roomService.roomInformation['area'] == '0') ? 'Unknown' : roomService.roomInformation['area']);
+        };
+        $scope.getRoomClosetType = function(){
+            if(!isDefined(roomService.roomInformation)){
+                return '';
+            }
+            return ((roomService.roomInformation['closet_type'] === '') ? 'Unknown' : roomService.roomInformation['closet_type']);
+        };
+
         $scope.getImgSrc = function(){
             if(!isDefined(roomService.roomInformation)){
                 return '';

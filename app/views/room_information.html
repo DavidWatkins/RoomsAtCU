@@ -1,22 +1,27 @@
 <md-content flex class="md-padding" ng-controller="roomInformationCtrl" style="height: 100vh; overflow-y: auto">
-    <h2 class="text-title">{{getRoomTitle()}}</h2>
-    <div class="md-padding" layout="row">
-
+    <div layout="row">
+        <div>
+            <h2 class="text-title">{{getRoomTitle()}}</h2>
         <!-- Basic room information goes here -->
         <div flex="25">
-            <h3> Room Specifics </h3>
-            <div flex="100" class="md-whiteframe-z1 md-padding">{{getRoomInformation()}}</div>
+            <div class="md-whiteframe-z1">
+                <h3 class="md-padding" style="background: #3F51B5; color: white; border-bottom: 1px solid lightgray"> Room Specifics </h3>
+                <div style="padding: 8px 16px 0px 16px"><b>Type: </b>{{getRoomType()}}</div>
+                <div style="padding: 16px 16px 0px 16px"><b>Area: </b>{{getRoomArea()}}</div>
+                <div style="padding: 16px 16px 16px 16px"><b>Closet Type: </b>{{getRoomClosetType()}}</div>
+            </div>
+        </div>
         </div>
         <span flex></span>
 
         <!-- Specific reviews about a room go here -->
-        <div flex="70">
+        <div flex="70" ng-if="getReviews().length > 0">
             <h3> Reviews </h3>
             <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="2"
                           md-row-height-gt-md="1:1" md-row-height="4:1"
                           md-gutter="12px" md-gutter-gt-sm="8px">
 
-                <md-grid-tile ng-repeat="review in reviews"
+                <md-grid-tile ng-repeat="review in getReviews()"
                               class="md-whiteframe-z1"
                               md-rowspan="1" md-colspan="1">
                     <md-grid-tile-header class="md-padding">{{review.getHeader()}}</md-grid-tile-header>
@@ -26,8 +31,9 @@
 
             </md-grid-list>
         </div>
+        <img flex="50" class="md-padding" style="max-width: 100%; max-height: 600px" ng-src="{{getImgSrc()}}"/>
     </div>
-    <img style="max-width: 100%; max-height: 600px" ng-src="{{getImgSrc()}}"/>
+
 
 
 
